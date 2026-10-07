@@ -1,13 +1,26 @@
-const express = require('express');
-const app=express();
+require("dotenv").config();
 
-const productRoutes=require('./routes/productRoutes')
+const express = require("express");
+const productRoutes = require("./routes/productRoutes");
+const connectDB = require("./config/db");
 
-app.get('/',(req,res)=>{
-    res.send('hello');
-})
+const app = express();
 
-app.use('/api/products',productRoutes)
-app.listen(5000,()=>{
-    console.log('loged in')
+app.set('view engine','ejs');
+
+app.use(express.urlencoded({ extended: true }));
+connectDB();
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("Thanal Profit Tracker API");
+});
+app.get("/add-product", (req, res) => {
+    res.render("productForm");
+});
+app.use("/api/products", productRoutes);
+
+app.listen(5000, () => {
+    console.log("Server running on port 5000");
 });
