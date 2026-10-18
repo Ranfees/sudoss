@@ -63,12 +63,34 @@ const createProduct = async (req, res) => {
     }
 };
 
-const updateProduct = (req, res) => {
-    res.json({
-        message: "Product updated",
-        id: req.params.id,
-        updatedData: req.body
-    });
+const updateProduct = async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        );
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Product updated successfully",
+            product: product
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to update product",
+            error: error.message
+        });
+    }
 };
 
 const deleteProduct = (req, res) => {
