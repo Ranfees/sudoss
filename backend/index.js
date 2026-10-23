@@ -20,6 +20,11 @@ app.get("/", (req, res) => {
 app.get("/add-product", (req, res) => {
     res.render("productForm");
 });
+
+app.get("/delete-product", (req, res) => {
+    res.render("deleteProduct");
+});
+
 app.use("/api/products", productRoutes);
 app.get("/update-product", (req, res) => {
     res.render("updateProduct");
