@@ -4,6 +4,8 @@ const express = require("express");
 const productRoutes = require("./routes/productRoutes");
 const connectDB = require("./config/db");
 
+const authRoutes = require("./routes/authRoutes");
+
 const app = express();
 
 app.set('view engine','ejs');
@@ -29,6 +31,12 @@ app.use("/api/products", productRoutes);
 app.get("/update-product", (req, res) => {
     res.render("updateProduct");
 });
+app.get("/register", (req, res) => {
+    res.render("register");
+});
+
+app.use("/api/auth", authRoutes);
+
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
