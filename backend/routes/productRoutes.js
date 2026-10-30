@@ -2,6 +2,9 @@ const express=require('express')
 const router=express.Router()
 
 const {getProducts,getProduct,createProduct,updateProduct,deleteProduct}=require('../controllers/productController')
+const { protect } = require("../middleware/authMiddleware");
+
+router.get("/secure", protect, getProducts);
 
 router.get('/',getProducts)
 

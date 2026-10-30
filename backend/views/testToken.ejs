@@ -29,7 +29,7 @@
         async function testWithToken() {
             const token = document.getElementById("token").value.trim();
 
-            const response = await fetch("/api/test/private", {
+            const response = await fetch("/api/products/secure", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
