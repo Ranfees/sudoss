@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JWT Test</title>
+</head>
+<body>
+    <h1>Test JWT Authentication</h1>
+
+    <label>Paste your login token:</label>
+    <br><br>
+    <textarea id="token" rows="5" cols="60"></textarea>
+    <br><br>
+
+    <button onclick="testWithoutToken()">Test without token</button>
+    <button onclick="testWithToken()">Test with token</button>
+
+    <pre id="result"></pre>
+
+    <script>
+        async function testWithoutToken() {
+            const response = await fetch("/api/test/private");
+            const data = await response.json();
+
+            document.getElementById("result").textContent =
+                JSON.stringify(data, null, 2);
+        }
+
+        async function testWithToken() {
+            const token = document.getElementById("token").value.trim();
+
+            const response = await fetch("/api/test/private", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const data = await response.json();
+
+            document.getElementById("result").textContent =
+                JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>

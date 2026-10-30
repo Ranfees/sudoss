@@ -15,7 +15,7 @@ connectDB();
 
 app.use(express.json());
 app.use(methodOverride("_method"));
-
+const testRoutes = require("./routes/testRoutes");
 app.get("/", (req, res) => {
     res.send("Thanal Profit Tracker API");
 });
@@ -40,7 +40,10 @@ app.get("/login", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-
+app.use("/api/test", testRoutes);
+app.get("/test-token", (req, res) => {
+    res.render("testToken");
+});
 app.listen(5000, () => {
     console.log("Server running on port 5000");
 });
